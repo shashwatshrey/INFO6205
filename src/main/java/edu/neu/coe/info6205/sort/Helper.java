@@ -11,7 +11,7 @@ import static java.util.Arrays.binarySearch;
  *
  * @param <X>
  */
-public interface Helper<X extends Comparable<X>> extends GenericHelper<X> {
+public interface  Helper<X extends Comparable<X>> extends GenericHelper<X> {
 
     /**
      * Compare elements i and j of xs within the subarray lo..hi
