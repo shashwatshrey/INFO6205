@@ -130,70 +130,63 @@ public class Benchmark_Timer<T> implements Benchmark<T> {
     final static LazyLogger logger = new LazyLogger(Benchmark_Timer.class);
 
     public static void main(String[] args) {
-        int m = 100;
+        int repeats = 100;
+        InsertionSort<Integer> insertionsort = new InsertionSort<>();
+        Consumer<Integer[]> method = array -> insertionsort.sort(array, 0, array.length);
         Random random = new Random();
         System.out.println("===========Random===========");
         for (int n = 100; n <= 1600; n = n * 2) {
-            InsertionSort<Integer> insertSort = new InsertionSort<>();
-            Consumer<Integer[]> method = array -> insertSort.sort(array, 0, array.length);
-            Benchmark_Timer<Integer[]> benchmarkTimer = new Benchmark_Timer<>("Random -> " + n, method);
-
             Integer[] array = new Integer[n];
             for (int i = 0; i < n; i++){
                 array[i] = random.nextInt();
             }
+            Benchmark_Timer<Integer[]> benchmarktimer = new Benchmark_Timer<>("Random -> " + n, method);
             method.accept(array);
-            System.out.println(benchmarkTimer.run(array, m));
+            System.out.println(benchmarktimer.run(array, repeats));
         }
 
 
         System.out.println("======Ordered======");
         for (int n = 100; n <= 1600; n = n * 2) {
-            InsertionSort<Integer> insertSort = new InsertionSort<>();
-            Consumer<Integer[]> method = array -> insertSort.sort(array, 0, array.length);
-            Benchmark_Timer<Integer[]> benchmarkTimer = new Benchmark_Timer<>("Ordered -> " + n, method);
-
             Integer[] array = new Integer[n];
             for(int i = 0; i < n ; i++){
                 array[i] = i;
             }
-
-
+            Benchmark_Timer<Integer[]> benchmarktimer = new Benchmark_Timer<>("Ordered -> " + n, method);
             method.accept(array);
-            System.out.println(benchmarkTimer.run(array, m));
+            System.out.println(benchmarktimer.run(array, repeats));
         }
 
         System.out.println("=======Partially ordered=======");
         for (int n = 100; n <= 1600; n = n * 2){
-            InsertionSort<Integer> insertSort = new InsertionSort<>();
-            Consumer<Integer[]> method = array -> insertSort.sort(array, 0, array.length);
-            Benchmark_Timer<Integer[]> benchmarkTimer = new Benchmark_Timer<>("PartiallyOrdered ->" + n, method);
-
-            //Integer[] array = {1,2,3,4,9,8,7,6};
             Integer[] array;
             array = new Integer[n];
             for (int i = 0; i < n/2; i++)
                 array[i] = i;
             for (int j = n - 1 ; j >= n/2; j--)
                 array[j] = j;
+            Benchmark_Timer<Integer[]> benchmarktimer = new Benchmark_Timer<>("PartiallyOrdered ->" + n, method);
+
+            //Integer[] array = {1,2,3,4,9,8,7,6};
+
             method.accept(array);
-            System.out.println(benchmarkTimer.run(array, m));
+            System.out.println(benchmarktimer.run(array, repeats));
         }
 
         System.out.println("======Reverse======");
-        for (int n = 100; n <= 1600; n = n * 2) {
-            InsertionSort<Integer> insertSort = new InsertionSort<>();
-            Consumer<Integer[]> method = array -> insertSort.sort(array, 0, array.length);
-            Benchmark_Timer<Integer[]> benchmarkTimer = new Benchmark_Timer<>("Reverse -> " + n, method);
 
-            //Integer[] array = {9,8,7,6,5,4,3,2,1};
+        for (int n = 100; n <= 1600; n = n * 2) {
             Integer[] array;
             array = new Integer[n];
             for(int i = n-1 ; i >=0 ; i--){
                 array[i] = i;
             }
+            Benchmark_Timer<Integer[]> benchmarktimer = new Benchmark_Timer<>("Reverse -> " + n, method);
+
+            //Integer[] array = {9,8,7,6,5,4,3,2,1};
+
             method.accept(array);
-            System.out.println(benchmarkTimer.run(array, m));
+            System.out.println(benchmarktimer.run(array, repeats));
         }
 
 
