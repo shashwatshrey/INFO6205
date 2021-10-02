@@ -3,6 +3,9 @@
  */
 package edu.neu.coe.info6205.union_find;
 
+import java.util.Random;
+import java.util.Scanner;
+
 /**
  * Weighted Quick Union with Path Compression
  */
@@ -111,4 +114,23 @@ public class WQUPC {
         count--;
     }
 
+    //Assignment - 3 code
+    public static void main(String[] args) {
+        int connectionCount = 0;
+        Random random = new Random();
+        if (args.length == 0)
+            throw new RuntimeException("Need input number of sites to create the HWQUPC");
+        int N = Integer.parseInt(args[0]);
+        WQUPC wqupc = new WQUPC(N);
+        while(wqupc.count > 1){
+            int p = random.nextInt(N);
+            int q = random.nextInt(N);
+            System.out.println(p + " " + q);
+            wqupc.union(p, q);
+            connectionCount++;
+
+        }
+
+        System.out.println(N + " sites generate " + connectionCount + " connections");
+    }
 }

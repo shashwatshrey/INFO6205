@@ -19,6 +19,7 @@ public class UF_HWQUPC implements UF {
      * @param p the integer representing one site
      * @param q the integer representing the other site
      */
+
     public void connect(int p, int q) {
         if (!isConnected(p, q)) union(p, q);
     }
@@ -82,6 +83,12 @@ public class UF_HWQUPC implements UF {
         validate(p);
         int root = p;
         // TO BE IMPLEMENTED
+        while(root != parent[root]){
+            if (this.pathCompression) {
+                doPathCompression(root);
+            }
+             root = parent[root];
+        }
         return root;
     }
 
@@ -169,6 +176,16 @@ public class UF_HWQUPC implements UF {
 
     private void mergeComponents(int i, int j) {
         // TO BE IMPLEMENTED make shorter root point to taller one
+        int a = parent[i];
+        int b = parent[j];
+
+        if(height[a] < height[b]){
+            parent[a] = b;
+            height[b] += height[a];
+        }else{
+            parent[b] = parent[a];
+            height[a] += height[b];
+        }
     }
 
     /**
@@ -176,5 +193,7 @@ public class UF_HWQUPC implements UF {
      */
     private void doPathCompression(int i) {
         // TO BE IMPLEMENTED update parent to value of grandparent
+        parent[i] = parent[parent[i]];
     }
+
 }
