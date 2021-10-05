@@ -120,17 +120,21 @@ public class WQUPC {
         Random random = new Random();
         if (args.length == 0)
             throw new RuntimeException("Need input number of sites to create the HWQUPC");
-        int N = Integer.parseInt(args[0]);
-        WQUPC wqupc = new WQUPC(N);
-        while(wqupc.count > 1){
-            int p = random.nextInt(N);
-            int q = random.nextInt(N);
-            System.out.println(p + " " + q);
-            wqupc.union(p, q);
-            connectionCount++;
+        for(int i = 0; i < 1000 ; i += 10){
+            int N = i;
+            WQUPC wqupc = new WQUPC(N);
+            while(wqupc.count > 1){
+                int p = random.nextInt(N);
+                int q = random.nextInt(N);
+                //System.out.println(p + " " + q);
+                wqupc.union(p, q);
+                connectionCount++;
 
+            }
+            System.out.println( connectionCount );
         }
 
-        System.out.println(N + " sites generate " + connectionCount + " connections");
+
+
     }
 }
