@@ -17,6 +17,9 @@ import java.util.concurrent.ForkJoinPool;
 public class Main {
 
     public static void main(String[] args) {
+        //System.out.println("The Program is running");
+        ParSort.threadCount = Integer.parseInt(args[0]);
+        ParSort.cutoff = Integer.parseInt(args[1]);
         processArgs(args);
         System.out.println("Degree of parallelism: " + ForkJoinPool.getCommonPoolParallelism());
         Random random = new Random();

@@ -2,6 +2,9 @@ package edu.neu.coe.info6205.sort.par;
 
 import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ForkJoinPool;
 
 /**
  * This code has been fleshed out by Ziyao Qiao. Thanks very much.
@@ -10,6 +13,7 @@ import java.util.concurrent.CompletableFuture;
 class ParSort {
 
     public static int cutoff = 1000;
+
 
     public static void sort(int[] array, int from, int to) {
         if (to - from < cutoff) Arrays.sort(array, from, to);
@@ -41,7 +45,9 @@ class ParSort {
             parsort.join();
         }
     }
-
+    //Executor executor = Executors.newFixedThreadPool(10);
+    public static int threadCount = 10;
+    public static ForkJoinPool myPool = new ForkJoinPool(threadCount);
     private static CompletableFuture<int[]> parsort(int[] array, int from, int to) {
         return CompletableFuture.supplyAsync(
                 () -> {
@@ -50,7 +56,7 @@ class ParSort {
                     System.arraycopy(array, from, result, 0, result.length);
                     sort(result, 0, to - from);
                     return result;
-                }
+                },myPool
         );
     }
 }
