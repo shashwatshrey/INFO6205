@@ -13,7 +13,7 @@ class LargestTree{
         int size = 1;
         for(int i = 0; i < adj[u].size() ; i++){
             if(!visited.get(adj[u].get(i))) {
-                size += DFS(adj[u].get(i),adj,visited);
+                size = size +  DFS(adj[u].get(i),adj,visited);
             }
         }
          return size;
@@ -22,7 +22,7 @@ class LargestTree{
     public int largestTree(LinkedList<Integer> adj[], int V)
     {
         //TO-DO:
-        Vector<Boolean> marked = new Vector<>();
+            Vector<Boolean> marked = new Vector<>();
             for(int i = 0; i < V; i++)
             {marked.add(false);}
             int count = 0;
